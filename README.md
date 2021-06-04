@@ -1,2 +1,2 @@
-# learning_and_practice
+# Learning & Practice
 Various demos, study materials, and documentation
