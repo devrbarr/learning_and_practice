@@ -5,4 +5,6 @@
 
 
 ## Handy Packages
-- <i>dplyr</i> for %>% pipe notation.
+- <i>dplyr</i> & <i>magrittr</i> for %>% pipe notation.
+  - arrage() | order() 
+  - mutate | assignment
