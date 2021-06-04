@@ -1,7 +1,8 @@
 # My R Notes
 
 ## Handy Methods
-- cumsum(): cumulative sum that computes a running total
+- Base/Core
+  - base::cumsum(): cumulative sum that computes a running total
 
 
 ## Handy Packages
