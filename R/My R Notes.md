@@ -11,7 +11,7 @@
 - Base/Core
   - base::cumsum(): cumulative sum that computes a running total
   - base::rm(): remove/delete environmental variables. 
-    - rm(list = ls()) clears all environment variables.
+    - rm( list = ls() ) clears all environment variables.
     - rm( list = ls(all = TRUE) )
 
 ## Exploratory Data Analysis (EDA)
