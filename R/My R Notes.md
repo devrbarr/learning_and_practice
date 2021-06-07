@@ -6,6 +6,7 @@
   - mutate() --> assignment
 - <i>reader</i> from tidyverse
   - Various methods for reading data files and a sql-like query syntax.
+- <i>DBI</i> to work directly with databases or Apache Spark using SQL, dplyr, or rquery
 
 ## Handy Methods
 - Base/Core
@@ -27,3 +28,4 @@
 - colnames() - List or assign column names to a data.frame. Ex: colnames(mydata.frame) <- c('name 1', 'name 2', 'name 3', 'name etc') 
 - names() - List or assign column names to a data.frame.
 - mapping() - Use named parameters to map column names. 
+- complete.cases() 
