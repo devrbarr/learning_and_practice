@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/w3.css"> 
+    <style>
+        .page-content{
+            max-width: 750px;
+            margin: auto;
+        }
+    </style>
+    <title>Halloween Candy App</title>
+</head>
+<body>
+    <div class="page-content">
+        <div class = "divMain w3-container">
+            <form class="w3-container">
+                <label for="">Search Candy Rankings:</label>
+                <input type = "text" placeholder="Search Candy" class="search-candy w3-input w3-border w3-round" oninput="CandySearch(event)">
+            </form>
+            <p></p>
+            <div class="divTable w3-container">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+    let candy_data;
+
+    const CandySearch = (evt) => {
+        let val = evt.target.value ;
+        buildFilterTable(val);
+    } ;
+        
+    const CSVToJSON = csv => {
+        const lines = csv.trim().split('\n'); //may need, csv.trim().split(/\r?\n|\r/); 
+        const keys = lines[0].split(',');
+        return lines.slice(1).map(line => {
+            return line.split(',').reduce((acc, cur, i) => {
+                const toAdd = {};
+                toAdd[keys[i]] = cur;
+                return { ...acc, ...toAdd };
+            }, {});
+        });
+    };
+
+    const buildMainTable = (data) => {
+
+        if(document.querySelector('.candy-table')) document.querySelector('.candy-table').remove();
+
+        let table = '';
+        let table_header = '';
+        let table_rows = '';
+
+        data.forEach(obj_candy =>{
+            
+            table_rows += `<tr><td>${obj_candy.competitorname.replace('Õ',"'")}</td><td><div class="w3-light-grey"><div class="w3-container w3-orange w3-padding" style="width:${parseFloat(obj_candy.winpercent).toFixed(0)}%;">${parseFloat(obj_candy.winpercent).toFixed(2)}%</div></div></td></tr>`;
+
+        });
+
+        table = '<table class="candy-table w3-table w3-card-4">';
+        table += '<thead><tr><th>Competitor Name</th><th>Win Percent</th></tr></thead>';
+        table += `<tbody>${table_rows}</tbody>`;
+        table += '</table>';
+
+        document.querySelector('.divTable').innerHTML += table;
+
+    };
+
+    const buildFilterTable = (competitorname) => {
+
+        //let filteredData = candy_data.filter(candy => candy.competitorname.indexOf(competitorname) > -1) ;
+        let filteredData = candy_data.filter(candy => candy.competitorname.toLowerCase().includes(competitorname.toLowerCase()));
+        buildMainTable( filteredData );
+
+    };
+
+    fetch('https://raw.githubusercontent.com/devrbarr/datasets/main/candy-data.csv')
+        .then(response => response.text())
+        .then(data => { 
+        candy_data = CSVToJSON(data);
+        buildMainTable(candy_data.sort((a,b)=>{return b.winpercent - a.winpercent; }));
+    });
+
+
+    </script>
+</body>
+</html>
